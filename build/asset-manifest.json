@@ -1,0 +1,10 @@
+{
+  "main.css": "static/css/main.css",
+  "main.css.map": "static/css/main.css.map",
+  "main.js": "static/js/main.js",
+  "main.js.map": "static/js/main.js.map",
+  "static/media/DAT_m_iconfont.eot?7cxt51": "static/media/DAT_m_iconfont.eot",
+  "static/media/DAT_m_iconfont.svg?7cxt51": "static/media/DAT_m_iconfont.svg",
+  "static/media/DAT_m_iconfont.ttf?7cxt51": "static/media/DAT_m_iconfont.ttf",
+  "static/media/DAT_m_iconfont.woff?7cxt51": "static/media/DAT_m_iconfont.woff"
+}
