@@ -1,0 +1,2121 @@
+
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>阿波罗 DAT</title>
+<style type="text/css">
+	*{margin:0;padding:0;}
+	#area-obstacle-gallery{
+		width:400px;
+		height:700px;
+		border: 1px red solid;
+		float:left;
+	}
+	</style>
+	<link rel="stylesheet" type="text/css" href="/dat/static/leaflet-draw/leaflet.css">
+<link rel="shortcut icon" href="/dat/static/image/favicon.ico">
+
+ 	<link rel="stylesheet" href="/dat/static/leaflet-draw/leaflet.draw.css" />
+	 <script type="text/javascript" src="/dat/static/js/jquery/jquery-2.1.0.js"></script>
+	<script src="/dat/static/leaflet-draw/leaflet-src.js"></script>
+	<script src="/dat/static/leaflet-draw/Leaflet.draw.js"></script>
+    <script src="/dat/static/leaflet-draw/Leaflet.Draw.Event.js"></script>
+    <script src="/dat/static/leaflet-draw/Toolbar.js"></script>
+    <script src="/dat/static/leaflet-draw/Tooltip.js"></script>
+    <script src="/dat/static/leaflet-draw/GeometryUtil.js"></script>
+    <script src="/dat/static/leaflet-draw/LatLngUtil.js"></script>
+    <script src="/dat/static/leaflet-draw/LineUtil.Intersect.js"></script>
+    <script src="/dat/static/leaflet-draw/Polygon.Intersect.js"></script>
+    <script src="/dat/static/leaflet-draw/barrier.js"></script>
+    <script src="/dat/static/leaflet-draw/Polyline.Intersect.js"></script>
+    <script src="/dat/static/leaflet-draw/TouchEvents.js"></script>
+    <script src="/dat/static/leaflet-draw/DrawToolbar.js"></script>
+    <script src="/dat/static/leaflet-draw/Draw.Feature.js"></script>
+    <script src="/dat/static/leaflet-draw/Draw.SimpleShape.js"></script>
+    <script src="/dat/static/leaflet-draw/Draw.Polyline.js"></script>
+    <script src="/dat/static/leaflet-draw/Draw.Circle.js"></script>
+    <script src="/dat/static/leaflet-draw/Draw.Marker.js"></script>
+    <script src="/dat/static/leaflet-draw/Draw.Rectangle.js"></script>
+    <script src="/dat/static/leaflet-draw/Draw.Polygon.js"></script>
+    <script src="/dat/static/leaflet-draw/EditToolbar.js"></script>
+    <script src="/dat/static/leaflet-draw/EditToolbar.Edit.js"></script>
+    <script src="/dat/static/leaflet-draw/EditToolbar.Delete.js"></script>
+    <script src="/dat/static/leaflet-draw/Control.Draw.js"></script>
+	<script src="/dat/static/leaflet-draw/leaflet-image.js" ></script>
+    <script src="/dat/static/leaflet-draw/Edit.Poly.js"></script>
+    <script src="/dat/static/leaflet-draw/Edit.SimpleShape.js"></script>
+    <script src="/dat/static/leaflet-draw/Edit.Circle.js"></script>
+    <script src="/dat/static/leaflet-draw/Edit.Marker.js"></script>
+    <script src="/dat/static/leaflet-draw/Edit.Rectangle.js"></script>
+	<script src="/dat/static/leaflet-draw/L.Path.Drag-src.js"></script>
+	<script src="/dat/static/leaflet-draw/Leaflet.Editable.js"></script>
+	<script src="/dat/static/leaflet-draw/L.DomEvent.js"></script>
+	<script src="/dat/static/leaflet-draw/leaflet.rotatedMarker.js"></script>
+	 <script type="text/javascript" src="/dat/static/js/base.js"></script>
+<script type="text/javascript" src="/dat/static/js/projectArea/projectArea.js"></script>
+<script type="text/javascript" src='/dat/static/leaflet/lib/leaflet.ChineseTmsProviders.js'></script>
+
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>阿波罗 DAT</title>
+<link rel="stylesheet" type="text/css" href="/dat/static/css/leaflet.css">
+<link rel="stylesheet" type="text/css" href="/dat/static/css/icon.css">
+<link rel="stylesheet" type="text/css" href="/dat/static/css/css.css">
+<link rel="stylesheet" type="text/css" href="/dat/static/css/jquery.contextMenu.css">
+<link rel="stylesheet" type="text/css" href="/dat/static/css/tinyselectDraw.css">
+
+<script type="text/javascript" src="/dat/static/js/easyui/jquery.easyui.min.js" charset="utf-8"></script>
+
+<!--  <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=f6c2fb6f2a81b305bdb8633765a8c781&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script> -->
+<script type="text/javascript" src='/dat/static/js/jquery.contextMenu.min.js'></script>
+<!-- 进度条js -->
+
+<script type="text/javascript" src='/dat/static/js/jquery.knob.js'></script>
+<script type="text/javascript">
+//getModuleType();//组件类型
+var setDate=1000;
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+        }
+    //调整报告页进度条
+     function setSB(v, el) {
+         var ie5 = (document.all && document.getElementsByTagName);
+         if (ie5 || document.readyState == "complete")   {
+          filterEl = el.children[0];
+          valueEl = el.children[1];
+          filterEl.style.width = v + "%";
+          valueEl.innerText = v + "%";
+         }
+        }
+		function fakeProgress(v, el) {
+			if (v > 100){
+				pointerO=false;
+       			pointerMap=false;
+       			setDate=1000;
+				$("#viewreport").show(500);
+				$(".loading-box").animate({height:'430px'});
+				$(".start_btn").unbind('click'); 
+				$("#line .candy-ltr").removeClass("candy-ltr")
+        	
+				$(".start_btn").bind('click',function(){
+            	 	var checkFlag = $("#onoff").attr('class');
+            	 	if(checkFlag.indexOf('icon_checkbox1_on')>=0){
+            	 		checkFlag=1;
+            	 	}else{
+            	 		checkFlag=0;
+            	 	}
+					var params = '{"name":"","submitType":"'+checkFlag+'"}';
+					$.axs("oa/project/updProjectName", params, function(data) {
+	                     if(data.code==200){}
+					});
+					location.href = "/dat/oa/projectAssetInformation/report";
+             });
+         }
+          //location.href = "/dat/oa/projectAssetInformation/report";
+
+         else   {
+        	$(".bar-80").css('width',v+'%');
+        	$("#percent").html(v+"%");
+            $("#line .candy-ltr").addClass("candy-ltr");
+          //setSB(v, el);
+       		if($('#loadingDiv').is(':hidden')){//判断弹出框是否显示
+       			pointerO=false;
+       			pointerMap=false;
+       			setDate=1000;
+                return;
+           	}
+            /* if(pointerO==true&&pointerMap==true){
+            	setDate=20;
+            }  */
+          window.setTimeout("fakeProgress(" + (++v) + ", document.all['" + el.id + "'])", setDate);
+         }
+        }
+//Google Analytics
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', gaID, 'auto');
+        ga('send', 'pageview');
+</script>
+  
+
+</head>
+<body  bgcolor="#eee">
+<span id=sb style="width: 50px; position: fixed;top:60px; right:60px; z-index:99999" ">
+<div style="filter: Alpha(Opacity=0, FinishOpacity=60, style=1, StartX=0, StartY=0, FinishX=100, FinishY=0); width: 0%; background: #9999ff"></div>
+<div style="font-size: 3rem; width: 100%; color: rgba(231, 231, 231, 0.5);font-family: arial; text-align: center"></DIV>
+</span>
+    <div class="bg"></div>
+        <div class="bg2"></div>
+    <div class="roof_prompt3" >
+        <img src="/dat/static/leaflet/lib/images/margin.png" />
+        <p>护栏边距是护栏内侧不可安放组件的距离</p>
+    </div>
+    <div class="roof_prompt color" id="roofprompt1">
+        <div style="margin-bottom:120px">
+            <dl>
+            <dt style=" ">斜屋顶：</dt>
+            <dt>平屋顶：</dt>
+            <dd>
+                    <img src="/dat/static/leaflet/lib/images/single_roof.png" />
+            </dd>
+            <dd>
+              <img src="/dat/static/leaflet/lib/images/flat_roof.png" />
+              </dd>
+              <div class="clear"></div>
+         </dl>
+        <p>斜屋顶需要分成两块屋顶单独绘制</p>
+        </div>
+    </div>
+     <div class="roof_prompt3" id="roofprompt3">
+        <img src="/dat/static/leaflet/lib/images/angle.png" />
+        <p>坡度角为屋顶斜面与水平面之间的夹角</p>
+    </div>
+     <div class="roof_prompt3"  id="roofprompt6"> 
+        <img src="/dat/static/leaflet/lib/images/obstacle.png" />
+        <p>障碍物高度</p>
+    </div>
+     <div class="roof_prompt3"  id="roofprompt4" >
+        <img src="/dat/static/leaflet/lib/images/height.png" />
+        <p>护栏高度</p>
+    </div>
+     <div class="roof_prompt3"  id="roofprompt5" >
+        <img src="/dat/static/leaflet/lib/images/margin.png" />
+        <p>护栏边距</p>
+    </div>
+    <div class="back">
+            <div class="top">
+                <a href="/dat/oa/project/areaMap" onclick="ga('send','event', 'LOGO','click','跳转到首页');" class="logo"> </a>
+                <div class="header_right">
+                    <span class="user" id="loginUser"></span>
+                    <div class="split"></div>
+                    <a class="out" id="exit">退出</a>
+                </div>
+                
+            </div>
+            <div class="prompt_box2">
+                        <h3>确定提示</h3>
+                        <span class="icon_delete prompt_box_del "></span>
+                        <p>切换项目将会离开当前页面，是否切换？</p>
+                        <a href="#"  class="prompt_box2_cancel">再想想</a><a href="/dat/oa/project/areaMap" onclick="ga('send','event', 'button','click','切换回到首页');" class="prompt_box2_tab ">切换</a>
+            </div>
+            <!--进度条弹出框-->
+            <div class="loading-box" id="loadingDiv" style="display: none;">
+            	<div  class="icon_delete  loading-close"></div>
+            	<div class="loading-title">
+            			<p>DAT正在高速计算中<span id="percent">0%</span></p>
+            			<div class="pro-bar-container color-belize-hole">
+							<div class="pro-bar bar-80 color-peter-river"  id="line"  w="100"   >
+								<div class="pro-bar-candy candy-ltr"></div>
+							</div>
+						</div>
+            	</div>
+            	<div class="loading-middle" >
+					<div class="banner"></div>
+            		<p><span class="icon_checkbox1_on   " id="onoff"></span>将此项目信息提交至阿波罗登顶计划</p>
+            	</div>
+            	<div class="loading-footer">
+            		 <a href="#" class="start_btn"   id="viewreport"  style="display:none">查看报告</a>
+            	</div>	 
+            </div>
+            <!--进度条弹出框结束-->		
+
+            <div id="map" style="height: 100%; width: 100%; margin:0">
+                 
+            </div>
+
+            <!--新建项目-->
+            <div class="myRoof2">
+            
+                <div class="project_name"  id="style-7" >
+                     <span class="mls" id="projectName"  style="text-overflow: ellipsis;overflow: hidden;width:200px; display:inline-block; white-space: nowrap;"></span>
+                     <!-- <input type="text" class="mls" id="projectName" style="border: 0px" readonly="readonly"/> -->
+                     <span class="icon_switch size_20 lh50 new" ></span>
+                      <div class="tab_cue">切换项目</div>
+
+                     <span class="icon_edit size_20 lh50 new" id="updProjectName"></span>
+                      <div class="edit_name">编辑项目名称</div>
+                </div>
+                <div class="project_save2" >
+                    <div class="tab_div">
+                        <span class="active" id="showActive"><b>屋顶</b></span>
+                        <span id="zhang"><b>障碍物<i></i></b></span>
+                        <div class="underline"></div>
+                    </div>
+                    <div class="roof_prompt2" id="roofprompt2">
+                        <img src="/dat/static/leaflet/lib/images/azimuth.png" />
+                        <p>方位角为屋顶朝向与正南方向的夹角</p>
+                    </div>
+                    <div class="project_content block house-content" >
+                        <div class="project_content_create2 ">
+                            <a href="#" class="create_btn" id="roof" onclick="drawHouse(this)">    
+							绘制新屋顶
+                        <div class='circle'>
+                                <div class='circle1'>&nbsp;</div>
+                                <div class='circle2'>&nbsp;</div>
+                        </div>
+                        </a>
+                            <div class='project_content_overflow' id="height">
+                                <div class="prompt_box">
+                                    <div  style="margin-bottom:10px;"><img src="/dat/static/image/show-how.gif"  width:100%/></div>
+                                    <h3>开始绘制</h3>
+                                    <p>
+                                        1.点击<span>“绘制新屋顶”</span>按钮开始绘制；<br/>
+                                        2.单击鼠标左键在屋顶角落添加新锚点；<br/>
+                                        3.绘制完成时，单击起始锚点或在前一锚点双击即可闭合屋顶区域;<br/>
+                                        4.设置屋顶相应参数；<br/>
+                                        5.重复以上步骤绘制障碍物；<br/>
+                                        6.重复以上步骤完成屋顶绘制，点击<span>“生成收益报告”</span>按钮即可生成报告。
+                                    </p>
+                                </div>
+                                <div id="roof2">
+                                          
+                                    <div id="rooftitle"></div>
+                                    <div class="pagination" id="areaPage">
+                                        <ul>
+                                            <li><span  class="icon_arrow1_left" ></span></li>
+                                            <li><span class="round">1</span></li>
+                                            <li><span class="icon_arrow1_right"  ></span></li>
+                                            <div class="clear"></div>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div id="roof_set">
+                                       
+                                
+                                </div>
+                            </div>
+                            <div class=" create_roof" id="roof_type">
+
+                                <div class=" create_roof_title">
+                                    <span class="icon_arrow2_down ml2 "></span>
+                                    <span class="edit_text">屋顶</span>
+                                    <span class=" icon_delete2 lh30"></span>
+                                    <span class="icon_edit lh30  new" ></span>
+                                </div>
+                                <div class=" copy">
+                                <div class=" create_roof_type">
+                                    <dl>
+                                        <dt>屋顶1</dt>
+                                        <span class="icon_info color" id="info1"></span>
+                                        <dd class="select">
+                                            <span class="icon_checkbox_on type_name" tabindex='0' id="flatAreaType" onclick="updAreaType2(this)"></span>
+                                            <span>平屋顶</span>
+                                         
+                                        </dd>
+                                        <dd class="select">
+                                         
+                                            <span class="icon_checkbox_off type_name" tabindex='0' id="bevelAreaType" onclick="updAreaType1(this)"></span>
+                                            <span>斜屋顶</span>
+                                            
+                                        </dd>
+                                        <div class="clear"></div>
+                                    </dl>
+                                    <div style="margin: 0 10px ;">
+                                        	<ul class="angle_val mts_10"  style=" margin-top:14px;">
+                                                <li class="angle_text">
+												屋顶方位角
+                                                <span class="icon_info color" id="info2"></span>
+                                                </li>
+                                                <li style="width: 112px; ">
+													<input id="direction" type="text" style="width: 112px; " placeholder="请输入方位角" class="angle_ipt knob" onkeyup='checkDirection(this)' data-max="360"  onclick="clickDirectionInput(this)" onblur='updDirection3(this)' maxlength="3"   data-cursor=true  data-fgColor="#00a1e3"  data-fgColor="#222222"  value="55" v/>
+													<i style="color:#333;position: absolute;left: 225px;top:0px">°</i>
+
+                                                </li>
+                                                <div class="clear"></div>                                   
+                                            </ul> 
+                                            <ul class="angle_val mts_10" id="slopeUl" style=" margin-top:17px;">
+                                                <li class="angle_text">
+												屋顶坡度角
+                                                <span class="icon_info color" id="info3"></span>
+                                                </li>
+                                                <li style="width: 112px; ">
+													<input id="slope" type="text" style="width: 112px; " placeholder="请输入坡度角" class="angle_ipt knob" data-angleOffset="0"  data-angleArc="90"  data-max="90" data-fgColor="#00a1e3"   data-cursor=true onblur="updSlope(this)" onclick="gradeAngle(this)" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'')" />
+													<i style="color:#333;position: absolute;left: 225px;top:0px">°</i>
+													<label for="prizeMoney2"> </label>
+                                                </li>                                        
+                                                <div class="clear"></div>                                   
+                                            </ul>
+										<ul class="angle_val mts_10"  style=" margin-top:14px;">
+                                            <li class="angle_text">
+											女儿墙高度
+                                            <span class="icon_info color" id="info4"></span>
+                                            </li>
+                                            <li>
+                                            </li>                                        
+                                            <li class="angle_ipt2"  style="width:157px; ">
+                                             <input type="text" placeholder="请输入高度"  style="width:157px"  class="angle_ipt2" id="prizeMoney" onclick="girlwallFocus(this)"  onkeyup="checkNum(this)" onblur="updWallLength(this)"/>
+                                             <label for="prizeMoney2"> </label>
+                                             <b>米</b>
+                                            </li>     
+                                            <div class="clear"></div>                                   
+                                        </ul>
+                                        </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project_content " id='barrier-content' >
+                        <div class="project_content_create2 ">
+                            <a href="#" class="create_btn" id="obstacle" onclick="drawBarrier()">绘制新障碍物</a>
+                            <div class='project_content_overflow' id="height2">
+                                <div id="roof3"></div>
+                                <div class="pagination" id="barPage">
+                                    <ul>
+                                        <li><span class="icon_arrow1_left" ></span></li>
+                                        <li><span class="round1">1</span></li>
+                                        <li><span class="icon_arrow1_right"></span></li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                           <div class=" create_roof" id="roof_type">
+                            <div class=" create_roof_title">
+                                <span class="icon_arrow2_down ml2 "></span>
+                                <span class="edit_text">障碍物</span>
+                                <span class=" icon_delete2 lh30"></span>
+                                <span class="icon_edit lh30  new"></span>
+                            </div>
+                            <div class=" copy2">
+                                <div class=" create_roof_type">
+                                  <div class="setting_content2">
+                                    <ul class="angle_val ">
+                                        <li class="angle_text">
+										高度
+                                        <span class="icon_info color" id="info6"></span>
+                                        </li>
+                                        <li>
+                                        </li>                                        
+                                        <li class="angle_ipt5" id="barHeight">
+                                         <input type="text" placeholder="请输入高度" class="angle_ipt5" id="barHeigth" onkeyup="checkNum(this)" onchange="changeBarHeight(this)"/><b>米</b>
+                                        </li>     
+                                        <div class="clear"></div>                                   
+                                     </ul>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!--新建项目结束-->
+            <div class="footer2">
+                    <div class="project_calculate">
+                            <div class="project_content_create " >
+                            <a href="#" class="generate_btn" id="toReport" >生成收益报告</a>
+                          </div>
+                         <span class="calculate_prompt">绘制障碍物和运维通道，方案测算更精确</span>
+                      </div>
+                    <ul id="width">
+                        <li>
+                                <div class="bl">
+                                    <h3 id="size">0</h3>
+                                    <h4 id="sizeText">容量（MW）</h4>
+                                </div>
+                        </li>   
+                        <li>
+                                <div class="bl">
+                                    <h3 id="areaSize">0</h3>
+                                    <h4 id="areaSizeText">面积（平方米）</h4>
+                                </div>  
+                        </li>               
+                        <li>
+                                <div class="bl">
+                                    <h3 id="power">0</h3>
+                                    <h4 id="powerText">年发电量（万度）</h4>
+                                 </div>
+                        </li>   
+                      <div class="clear"></div>     
+                    </ul>
+                        <div class="clear"></div>       
+            </div>
+    </div>
+    <script type="text/javascript">
+    //退出
+    $("#exit").click(function(){
+        var params = '';
+        $.axs("oa/project/areaOut", params, function(data) {
+            if(data.code==200){
+                var link = data.data;
+                window.location.href=link;
+            }
+        });
+        ga('send','event', 'button','click','退出');
+    })
+    
+	//关闭进度条弹窗
+	$(".loading-close").click(function(){
+		$(".loading-box").hide(); 
+		$("#viewreport").hide();
+		$(".loading-box").animate({height:'350px'});
+	});
+    
+    //点击绘制按钮清空文字提示
+    $("a.create_btn").click(function() {
+        $(".prompt_box").hide();
+        $(".circle").hide();
+    });
+    $(window).resize(function(){
+        var win = $(window).height();
+        var win2 = $(window).width();
+        $(".myRoof2").height(win-118);
+        $("#height").height(win-275);
+        $("#height2").height(win-275);
+        $("#height3").height(win-425);
+        $("#width").width(win2-340);        
+    });
+    var win = $(window).height();
+    var win2 = $(window).width();
+    $(".myRoof2").height(win-118);
+    $("#height").height(win-275);
+    $("#height2").height(win-275);
+    $("#height3").height(win-425);
+    $("#width").width(win2-340);      
+        $(".icon_switch").click(function() {
+            $(".prompt_box2").show();
+            ga('send','event', 'button','click','点击“切换”按钮');
+            $(".bg2").show();      
+        });
+        $(".prompt_box2_cancel").click(function() {
+            $(".prompt_box2").hide();
+            $(".bg2").hide();
+        });
+        $(".prompt_box_del").click(function() {
+            $(".prompt_box2").hide();
+            $(".bg2").hide();
+        });
+        //切换项目鼠标经过显示提示
+        $(".icon_switch").hover(function(){
+            $(".tab_cue").show();
+         },function(){  
+                $(".tab_cue").hide();
+        }); 
+        $(".icon_edit").hover(function(){
+            $(".edit_name").show();
+         },function(){  
+                $(".edit_name").hide();
+        }); 
+    //进度条
+	        function si(){
+		var time = window.setInterval(function(){
+			a=$("#line").width();
+			b=(a/450*100).toFixed(0);
+			$("#percent").html(b+"%");
+			if(b==100) {
+				clearInterval(time);
+				$("#viewreport").show(500);
+				$(".loading-box").animate({height:'402px'})
+			}
+		},70);
+	}
+	function processerbar(time){
+	
+		$("#line").each(function(i,item){
+			var a=parseInt($(item).attr("w"));
+			$(item).animate({
+				width: a+"%"
+			},time);
+		});
+	   si();
+	};
+	var arr=[500,1000,1200,4000,7000,12000];
+	var  i   =   parseInt(arr.length*Math.random())
+
+		//进度条check开关
+		var flag = true;
+		$("#onoff").click(function() {
+			var checkFlag;
+		    if( flag ){
+		    	checkFlag = 0;
+	            $(this).removeClass("icon_checkbox1_on").addClass("icon_checkbox1_off");
+		        flag = false;
+		    } else {
+		    	checkFlag = 1;
+	            $(this).removeClass("icon_checkbox1_off").addClass("icon_checkbox1_on");
+		        flag = true;
+		    }
+		    /* var params = '{"name":"","submitType":"'+checkFlag+'"}';
+		    $.axs("oa/project/updProjectName", params, function(data) {
+                if(data.code==200){}
+            }); */
+		});
+        //切换tab页
+        $(".tab_div span").click(function(){
+            var span = $(this);
+            var params = '{"id":"1"}';
+            $.axs("oa/projectArea/getAreaListByProjicetId", params, function(data) {
+                if(data.code==200){
+                    if(data.data.length>0){
+                        var i=span.index();
+                        span.addClass("active").children().children().css("display","none");
+                        span.siblings().removeClass("active")
+                        var bwidth =span.children().width();
+                        var width = span.width();
+                        $(".underline").css({"left":i*width+48 ,})  
+                        $(".project_content").eq(i).show().siblings(".project_content").hide();
+                        var html = $(".active").children();
+                        if(html.html().indexOf("障碍物")>=0){
+                            var pa = '{"type":"1"}';
+                            //判断项目是否存在绘制好的障碍物
+                            $.ins("oa/projectObstacle/getObstacleValue", pa, function(data) {
+                                if(data.code==200&&data.data.length>0){
+                                	$("#barPage").show();
+                                    //分页数据
+                                    var projectSize = Math.ceil(data.data.length/5);
+                                    var str = "<ul>";
+                                    str+="<li><span onclick='barPageUp()'  class='icon_arrow1_left' ></span></li>";
+                                    str+="<li><span id='barPage1' class='round1' onclick='changeBarPageNum(this,0)'>1</span></li>";
+                                    for (var i = 2; i <= projectSize; i++) {
+                                        var j = i-1;
+                                        str+='<li><span id="barPage'+i+'" onclick=changeBarPageNum(this,'+j+')>'+i+'</span></li>';
+                                    }
+                                    str+="<li><span onclick='barPageDown()'  class='icon_arrow1_right'></span></li>";
+                                    str+="</ul>";
+                                    $("#barPage").html(str);
+                                    $("#height2").find(".create_roof").remove();
+                                    getAllBarrierList(0);
+                                }else{
+                                	$("#barPage").hide();
+                                }
+                            })
+                        }
+                    }
+                }
+            })
+        });
+        $(".tab_div span:nth-child(1)").click(function() {
+            $(".underline").css({
+                "left" : '48px'
+            })
+        });
+        
+        //修改项目名称
+        $("#updProjectName").click(function(){
+            var txt = $("#projectName");
+            var edit = txt.text();
+            var editipt = $("<input type='text' class='edit_ipt2' value='"+edit+"' onkeyup='checkName(this)'/>");
+            txt.html(editipt)
+            var t=txt.children().val(); 
+            txt.children().val("").focus().val(t);
+            editipt.click(function() {
+                return false;
+            });
+            //获取焦点 
+            editipt.trigger("focus");
+            //文本框失去焦点后提交内容，重新变为文本 
+            editipt.blur(function() {
+                var newtxt = $(this).val();
+                txt.html(newtxt);
+                var params = '{"name":"'+newtxt+'","submitType":""}';
+                $.axs("oa/project/updProjectName", params, function(data) {
+                    if(data.code==200){}
+                });
+                if(newtxt != txt) {
+                    ga('send','event', 'button','click','修改项目名称');
+                }
+            });
+        })
+        //地图截图
+        var pointerO=false;
+        var pointerMap=false;
+        
+        function mapCut() {
+        	var layersCut=[];
+        	for(var i in map._layers) {
+        		if(map._layers[i].id!=null){
+        			if(map._layers[i].id.indexOf("mark")>-1){
+        				layersCut.push(map._layers[i]);
+                        map.removeLayer(map._layers[i]);//删除箭头
+                    }
+        		}
+            };
+        	reset(); 
+        	/* var params='{"oneselfOrOthers":"oneself"}';
+        	$.axs("oa/projectAssetInformation/getMaxCapacity", params, function(data) {
+        		pointerO=true;
+        		console.info("接口返回成功");
+        	}); */
+            leafletImage(map, function(err, canvas) {
+                var img = document.createElement('img');
+                var image = canvas.toDataURL('image/jpeg');
+                img.src = image;
+                img.id="cutImge";
+                var params='{"data":"'+image+'"}';
+                for(var i=0;i<layersCut.length;i++){
+                	map.addLayer(layersCut[i]);
+                }
+                $.axs("oa/project/cutMapUpload", params, function(data) {
+                	pointerMap=true;
+                	console.info("截图成功");
+                    setDate=20;
+                });
+            });
+        } 
+        //生成收益报告点击事件
+        function toReport(){
+        	var div1 = document.getElementById("loadingDiv");
+        	div1.style.display="block";
+			mapCut();
+			
+			alert("1");
+			fakeProgress(0, sb);
+			ga('send','event', 'button','click','生成收益报告');
+        }
+        
+        
+        var num = 1;
+        var numb = 1;
+        var numbe = 1;
+        var areaId = 0;
+        var obstacleId = 0;
+        var wayId = 0;
+        var barrier_shadow_point=[];
+        var this_barrierList;//障碍物高度change时，表示哪一个barrier
+        var barrier_poly_type=0;//
+        var gallery_poly_type=0;//1时给gallery_id_poly添加内容
+        var this_galleryList;//运维通道宽度change时，表示哪一个gallery
+        var close_btn=true;//点击生成收益报告，禁止绘图
+        var meterPix;//一米多少像素
+        var house_b_color="#00ffff";//屋顶颜色
+        var house_l_opacity=1;//屋顶线的透明度
+        var house_f_opacity=0.25;//屋顶填充透明度
+        var barrier_b_color="#ff6562";
+        var barrier_l_opacity=0.8;//障碍物线的透明度
+        var barrier_f_opacity=0.25;//障碍物填充透明度
+        var shadow_l_opacity=0;
+        var shadow_f_opacity=0.5;//障碍物阴影
+        var poly_center_url='/dat/static/image/JianTou.svg';
+        $('input.angle_ipt2').on('input propertychange', function() {
+            $('project_calculate_ul li h3.change').html($("input.angle_ipt2").val());
+
+        })
+        
+        function drawAreaShow(){
+        	var nowPageNum = $(".round").html();
+        	if(nowPageNum!=null&&nowPageNum>1){
+        		$("#areaPage1").addClass("round");
+                $("#areaPage1").parent().siblings().find("span").removeClass("round");
+        		$("#rooftitle").empty();
+        		getAllAreaList(0);
+        	}
+            var nameNum;
+            var pa = '{"id":"1"}';
+            $.ins("oa/projectArea/getAreaByProjectIdAndName", pa, function(data) {
+                if(data.code==200){
+                    if(data.data.length>0){
+                        var projectAreas = data.data;
+                        for (var i = 0; i < projectAreas.length; i++) {
+                        	var strs = projectAreas[i].name.split("屋顶");
+                        	if(!isNaN(parseInt(strs[1]))){
+                        		nameNum = parseInt(strs[1])+1;
+                        		break;
+                        	}else{
+                        		nameNum = 1;
+                        	}
+						}
+                    }else{
+                        nameNum = 1;
+                    }
+                }
+             });
+            var roofName = "屋顶"+nameNum;
+            var $roof = $(".copy").html();
+            var $new = $("<div class='create_roof house block' id='"+house_id+"' style='display:block'><div class=' create_roof_title'><span class='edit_text' id='roofName'>"
+                    + roofName
+                    + "</span><span class=' icon_delete2 lh30 new' onclick='clearArea(this)'></span><span class='icon_edit lh30  new' onclick='updAreaName(this)'></span></div></div>");
+		    $("#rooftitle").prepend($new);
+            $("#roof2").next().append($roof);
+            $("#roof2").show();
+        }
+
+        //屋顶
+        function drawAreaInfo(projectAreaDto) {
+            var pa = '{"id":"1"}';
+            $.axs("oa/projectArea/getAreaListByProjicetId", pa, function(data) {
+                if(data.code==200){
+                    if(data.data.length>0){
+                        //分页数据
+                        var projectSize = Math.ceil(data.data.length/5);
+                        var str = "<ul>";
+                        str+="<li><span onclick='pageUp()'  class='icon_arrow1_left'></span></li>";
+                        str+="<li><span class='round' id='areaPage1' onclick='changePageNum(this,0)'>1</span></li>";
+                        for (var i = 2; i <= projectSize; i++) {
+                            var j = i-1;
+                            str+='<li><span id="areaPage'+i+'" onclick=changePageNum(this,'+j+')>'+i+'</span></li>';
+                        }
+                        str+="<li><span onclick='pageDown()'  class='icon_arrow1_right'></span></li>";
+                        str+="</ul>";
+                        $("#areaPage").empty().html(str);
+                    }
+                }
+            });
+            $("#rooftitle").empty();
+            getAllAreaList(0);
+            areaId = house_id;
+            $("#"+areaId).find("input#slope").parent().parent().hide();
+            $("#info1").on("mouseover mouseout",function(){
+                if(event.type=="mouseover"){
+                    var X = $(this).offset().top;
+                    var Y = $(this).offset().left;
+                    $("div#roofprompt1").css({"left":Y + 30,"top":X - 120 })
+                    $("div#roofprompt1").show();
+                }else{$("div#roofprompt1").hide();}
+            })
+            $("#info3").on("mouseover mouseout",function(event){
+                if(event.type=="mouseover"){
+                    var X = $(this).offset().top;
+                    var Y = $(this).offset().left;
+                    $("div#roofprompt3").css({"left":Y + 30,"top":X - 120 })
+                    $("div#roofprompt3").show();
+                }else{$("div#roofprompt3").hide();}
+            })
+            $("#info2").on("mouseover mouseout",function(event){
+                if(event.type=="mouseover"){
+                    var X = $(this).offset().top;
+                    var Y = $(this).offset().left;
+                    $("div#roofprompt2").css({"left":Y + 20,"top":X - 200 })
+                    $("div#roofprompt2").show();
+                }else{ $("div#roofprompt2").hide();}
+                })
+            $("#info4").on("mouseover mouseout",function(event){
+                if(event.type=="mouseover"){
+                    var X = $(this).offset().top;
+                    var Y = $(this).offset().left;
+                    $("div#roofprompt4").css({"left":Y + 30,"top":X - 120 })
+                    $("div#roofprompt4").show();
+                }else{ $("div#roofprompt4").hide();}
+            })
+            $("#info5").on("mouseover mouseout",function(event){
+                if(event.type=="mouseover"){
+                    var X = $(this).offset().top;
+                    var Y = $(this).offset().left;
+                    $("div#roofprompt5").css({"left":Y + 30,"top":X - 120 })
+                    $("div#roofprompt5").show();
+                }else{ $("div#roofprompt5").hide();}
+            })
+            num++;
+        }
+        var house_detail_id;
+        //显示高级设置DIV
+        $('.house-content').on("click",".house",function(){
+            stopEvent(event);
+            house_detail_id=$(this).closest('div[id*="house"]').attr('id');
+            $(this).addClass('title_active').siblings().removeClass('title_active');
+            showDetailDesign();
+            //$("#slopeSelectTd").find("div[class='tinyselect2']").remove();
+            //$(".slopeSelect").tinyselect({ showSearch: false });
+        });
+        function showDetailDesign(){
+            var params = '{"areaId":"'+house_detail_id+'"}';
+            $.axs("oa/projectArea/getAreaByListId", params, function(data){
+                if(data.code==200){
+                    var projectList = data.data;
+                    var name=projectList.name
+                    var area_type=projectList.areaType;
+                    var direction=projectList.direction;
+                    var slope=projectList.slope;
+                    var wallLength=projectList.wallLength;
+                    $(".create_roof_type").eq(0).show();
+                    $("#slope").closest("ul").hide();
+                    $(".create_roof_type dl dt").html(name);
+                    if(area_type==1){
+                        //斜屋顶
+                        $(".create_roof_type dl dd:eq(0) span:eq(0)").removeClass("icon_checkbox_on").addClass("icon_checkbox_off");
+                        $(".create_roof_type dl dd:eq(1) span:eq(0)").removeClass("icon_checkbox_off").addClass("icon_checkbox_on");
+                        $("#slope").closest("ul").show();
+                    }else{
+                        $(".create_roof_type dl dd:eq(1) span:eq(0)").removeClass("icon_checkbox_on").addClass("icon_checkbox_off");
+                        $(".create_roof_type dl dd:eq(0) span:eq(0)").removeClass("icon_checkbox_off").addClass("icon_checkbox_on");
+                    };
+                    if(direction==null){
+                        $("#direction").val();
+                    }else if(direction!=null){
+                        $("#direction").val(direction);
+                    };
+                    //}
+                    if(slope!=null){
+                        //坡度角
+                        $("#slope").val(slope);
+                    };
+                    if(slope==null){
+                        //坡度角
+                        $("#slope").val("");
+                    };
+                    if(wallLength!=null){
+                        //护栏高度
+                        $("#prizeMoney").val(wallLength);
+                    };
+                    if(wallLength==null){
+                        //护栏高度
+                        $("#prizeMoney").val("");
+                    }
+                    var slopeUnit = projectList.slopeUnit;
+                    $("#slopeSelectTd").find("div[class='tinyselect2']").remove();
+                    $("#slopeSelectTd").find("div[class='tinyselect']").remove();
+                    var option = "";
+                    if(slopeUnit=="%"){
+                        option = '<option value="度">度</option><option value="%" selected>%</option>';
+                    }else if(slopeUnit=="度"){
+                        option = '<option value="度" selected>度</option><option value="%">%</option>';
+                    }else{
+                        option = '<option value="度">度</option><option value="%">%</option>';
+                    }
+                    $("#slopeSelect").empty().append(option);
+                    //$("#slopeSelect").tinyselect();
+                    $(".slopeSelect").tinyselect({ showSearch: false });
+                    //初始化圆环值效果
+                    var directionHtml = $("#direction");
+                    $('#direction').knob({
+                        'release' : function (v) {
+                        	updDirection3(directionHtml);
+                        }
+                    });
+                    $('#direction').val(direction).trigger('change');
+                    
+                    var slopeHtml = $("#slope");
+                    $('#slope').knob({
+                        'release' : function (v) {
+                        	updSlope(slopeHtml);
+                        }
+
+                    });
+                    $('#slope').val(slope).trigger('change');
+                }
+            });
+           
+        }
+
+        //验证方位角最多只能输入360
+        function checkDirection(flag){
+            stopEvent(event);
+            var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+            for(var i in map._layers) {
+                if (map._layers[i] instanceof L.Polygon) {
+                    if(map._layers[i].id.indexOf("house")>-1){
+                        map._layers[i].setStyle({color:house_b_color,opacity:house_l_opacity,fillOpacity: house_f_opacity});  
+                    };
+                    if(map._layers[i].id.indexOf("barrier")>-1){
+                        map._layers[i].setStyle({color:barrier_b_color,opacity:barrier_l_opacity,fillOpacity:barrier_f_opacity});
+                    };
+                    if(map._layers[i].id ==id){
+                        map._layers[i].setStyle({color:"#f5e74e",opacity:house_l_opacity,fillOpacity: house_f_opacity});
+                    }
+                }
+            };
+            var $amountInput = $(flag);
+            event = window.event || event;
+            if (event.keyCode == 37 | event.keyCode == 39) {
+                return;
+            }
+            $amountInput.val($amountInput.val().replace(/[^\d]/g, ""));
+            if($amountInput.val()>360){
+                $amountInput.val($amountInput.val().substr(0,2));
+            }
+        }
+        //验证输入框只能输入四位整数和两位小数点
+        function checkNum(flag){
+            var $amountInput = $(flag);
+            //响应鼠标事件，允许左右方向键移动 
+            event = window.event || event;
+            if (event.keyCode == 37 | event.keyCode == 39) {
+                return;
+            }
+            //先把非数字的都替换掉，除了数字和. 
+            $amountInput.val($amountInput.val().replace(/[^\d.]/g, "").
+                //只允许一个小数点              
+                replace(/^\./g, "").replace(/\.{2,}/g, ".").
+                //只能输入小数点后两位
+                replace(".", "$#$").replace(/\./g, "").replace("$#$", ".").replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'));
+            var num = $amountInput.val();
+            var result = (num.toString()).indexOf(".");
+            if(result != -1){
+                var amount = num.split(".")[0];
+                var floats = num.split(".")[1];
+                if(amount.length>4){
+                    amount = amount.substr(0,4);
+                }
+                if(floats!=null&&floats!=""){
+                    $amountInput.val(amount+"."+floats);
+                }else{
+                    $amountInput.val(amount+".");
+                }
+            }else{
+                if(num.length>4){
+                    num = num.substr(0,4);
+                }
+                $amountInput.val(num);
+            }
+        }
+        
+        //验证修改名称时不能输入特殊符号
+        function checkName(flag){
+            var $nameInput = $(flag);
+            $nameInput.val($nameInput.val().replace(/[^\w\u4e00-\u9fa5]+/g,''));
+        }
+        
+        //修改屋顶名称
+        function updAreaName(flag){
+            stopEvent(event);
+            var id=$(flag).parents(".create_roof").attr("id");
+            var txt = $(flag).prevAll("#roofName");
+            var edit = txt.text();
+            var editipt = $("<input type='text' class='edit_ipt' value='"+edit+"' onkeyup='checkName(this)'/>");
+            txt.html(editipt)
+                var t=txt.children().val(); 
+              txt.children().val("").focus().val(t);
+            editipt.click(function() {
+                return false;
+            });
+            //获取焦点 
+            editipt.trigger("focus");
+            //文本框失去焦点后提交内容，重新变为文本 
+            editipt.blur(function() {
+                var newtxt = $(this).val();
+                txt.html(newtxt );
+                $(".create_roof_type dl dt").html(newtxt);
+                var params = '{"direction":"","areaId":"'+id+'","name":"'+newtxt+'","module":"","azimuth":"","slope":"","totalArea":"","wallLength":"","wallGap":"","areaType":"","slopeUnit":"","directionAngle":"","corner":""}';
+                $.axs("oa/projectArea/updateArea", params, function(data) {})
+            })
+        }
+        //修改坡度角高亮
+        var slopeVal=3;
+            function gradeAngle(flag){
+               stopEvent(event);
+               //slopeVal = $(flag).val();
+               var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+               for(var i in map._layers) {
+                   if (map._layers[i] instanceof L.Polygon) {
+                       if(map._layers[i].id.indexOf("house")>-1){
+                           map._layers[i].setStyle({color:house_b_color,opacity:house_l_opacity,fillOpacity: house_f_opacity});  
+                       };
+                       if(map._layers[i].id.indexOf("barrier")>-1){
+                           map._layers[i].setStyle({color:barrier_b_color,opacity:barrier_l_opacity,fillOpacity:barrier_f_opacity});
+                       };
+                       if(map._layers[i].id ==id){
+                           map._layers[i].setStyle({color:"#f5e74e",opacity:house_l_opacity,fillOpacity: house_f_opacity});
+                       }
+                   }
+               };
+            }
+        //修改屋顶坡度角
+        function updSlope(flag){
+        	var changeSlopeVal = $(flag).val();
+        	/* if(slopeVal == changeSlopeVal){
+        		return;
+        	} */
+            var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+            var id_num=id.substring(5);
+            var girl_id="parapetCorner"+id_num;
+            
+            var slope = $(flag).val();
+            var params = '{"direction":"","areaId":"'+id+'","name":"","module":"","azimuth":"","slope":"'+slope+'","totalArea":"","wallLength":"","wallGap":"","areaType":"","slopeUnit":"","directionAngle":"","corner":""}';
+            $.axs("oa/projectArea/updateArea", params, function(data) {
+                if(data.code==200){
+                    var project = data.data;
+                    changePowerMoneyTotalCapaCity(project);
+                    //刷新女儿墙阴影
+                    var girl_wall_num=1;
+                    var params1 = '{"areaId":"'+id+'"}';
+                    $.axs("oa/projectObstacle/getWallByAreaListId", params, function(data){
+                        if(data.code==200){
+                            for(var j in map._layers) {
+                                if (map._layers[j] instanceof L.Polygon){
+                                    if(map._layers[j].id.indexOf("parapetCorner"+id_num)>-1){
+                                        map.removeLayer(map._layers[j]);
+                                    }
+                                }
+                            }
+                            var projectList = data.data;
+                            for(var i=0;i<projectList.length;i++){
+                                var res=projectList[i].shadow;
+                                var girl_shadow=JSON.parse(res);
+                                var girl_shadow_arr=[];
+                                for(var j=0;j<girl_shadow.length-1;j++){
+                                    var la=map.unproject(girl_shadow[j],18);
+                                    var point=[la.lat,la.lng];
+                                    girl_shadow_arr.push(point);
+                                };
+                                var polygon = new L.Polygon(girl_shadow_arr,{
+                                    color:"#000000",
+                                    opacity:0,
+                                    fillOpacity: 0.25,
+                                    width:0
+                                });
+                                var layer = polygon;
+                                layer.id="parapetCorner"+id_num+"_"+girl_wall_num;
+                                drawnItems.addLayer(layer);
+                                girl_wall_num++;
+                            }
+                        }
+                    });
+					//刷新障碍物阴影
+                    var obParams = '{"areaId":"'+id+'"}';
+                    $.axs("oa/projectObstacle/getByAreaId", obParams, function(data){
+                    	var projectObstacleList = data.data;
+                    	for(var i=0;i<projectObstacleList.length;i++){
+                    		barrierShadow(projectObstacleList[i].heigth,projectObstacleList[i].bakstr1);
+                    	}
+                    })
+                }
+            });
+            slopeVal=changeSlopeVal;
+        }
+        
+        //修改屋顶坡度角单位
+        function updSlopeUnit(flag){
+            $("#slopeSelectTd").find("div[class='tinyselect2']").remove();
+            $(".slopeSelect").tinyselect({ showSearch: false });
+            //var slopeUnit = options.selector;
+            stopEvent(event);
+            var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+            for(var i in map._layers) {
+                if (map._layers[i] instanceof L.Polygon) {
+                    if(map._layers[i].id.indexOf("house")>-1){
+                        map._layers[i].setStyle({color:house_b_color,opacity:house_l_opacity,fillOpacity: house_f_opacity});  
+                    };
+                    if(map._layers[i].id.indexOf("barrier")>-1){
+                        map._layers[i].setStyle({color:barrier_b_color,opacity:barrier_l_opacity,fillOpacity:barrier_f_opacity});
+                    };
+                    if(map._layers[i].id ==id){
+                        map._layers[i].setStyle({color:"#f5e74e",opacity:house_l_opacity,fillOpacity: house_f_opacity});
+                    }
+                }
+            };
+
+            var slopeUnit = $("#slopeSelect").val();
+            var slope;
+            var params = '{"areaId":"'+id+'"}';
+            $.ins("oa/projectArea/getAreaByListId", params, function(data){
+            	if(data.code==200&&data.data!=null){
+            		var projectArea = data.data;
+            		if(slopeUnit=="%"&&projectArea.slopeUnit!="%"){
+            			slope = 0;
+                        $(flag).parents().find("input#slope").val("0");
+            		}else if(slopeUnit=="度"&&projectArea.slopeUnit!="度"){
+            			slope = 3;
+                        $(flag).parents().find("input#slope").val("3");
+            		}else{
+            			slope = projectArea.slope;
+            		}
+            	}
+            })
+            var params = '{"direction":"","areaId":"'+id+'","name":"","module":"","azimuth":"","slope":"'+slope+'","totalArea":"","wallLength":"","wallGap":"","areaType":"","slopeUnit":"'+slopeUnit+'","directionAngle":"","corner":""}';
+            $.axs("oa/projectArea/updateArea", params, function(data) {
+                if(data.code==200){
+                    var project = data.data;
+                    changePowerMoneyTotalCapaCity(project);
+                }
+            })
+        }
+        var directionVal;
+        function clickDirectionInput(flag){
+        	stopEvent(event);
+        	//directionVal = $(flag).val();
+        	var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+        	for(var i in map._layers) {
+                if (map._layers[i] instanceof L.Polygon) {
+                    if(map._layers[i].id.indexOf("house")>-1){
+                        map._layers[i].setStyle({color:house_b_color,opacity:house_l_opacity,fillOpacity: house_f_opacity});  
+                    };
+                    if(map._layers[i].id.indexOf("barrier")>-1){
+                        map._layers[i].setStyle({color:barrier_b_color,opacity:barrier_l_opacity,fillOpacity:barrier_f_opacity});
+                    };
+                    if(map._layers[i].id ==id){
+                        map._layers[i].setStyle({color:"#f5e74e",opacity:house_l_opacity,fillOpacity: house_f_opacity});
+                    }
+                }
+            }
+        }
+        //修改屋顶方位角为用户输入
+        function updDirection3(flag){
+            stopEvent(event);
+            var changeDirectionVal = $(flag).val();
+            /* if(changeDirectionVal == directionVal){
+            	return;
+            } */
+            var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+            var id_num=id.substring(5);
+            var girl_id="parapetCorner"+id_num;
+          //删除marker
+            var mark_id=id.substring(5);
+            for(var i in map._layers) {
+                if(map._layers[i].id == "mark"+id.substring(5)){
+                    console.log(map._layers[i]._latlng.lat);
+                    var direction_x=map._layers[i]._latlng.lat;
+                    var direction_y=map._layers[i]._latlng.lng;
+                    map.removeLayer(map._layers[i]);
+                    getHouseCenter(mark_id,direction_x,direction_y,changeDirectionVal);//改变多边形箭头指向
+                    break;
+                }
+            };
+            directionVal = $(flag).val();
+            var params = '{"direction":"'+directionVal+'","areaId":"'+id+'","name":"","module":"","azimuth":"","slope":"","totalArea":"","wallLength":"","wallGap":"","areaType":"","slopeUnit":"","directionAngle":"","corner":""}';
+            $.axs("oa/projectArea/updateArea", params, function(data) {
+                if(data.code==200){
+                    var project = data.data;
+                    changePowerMoneyTotalCapaCity(project);
+                    //刷新女儿墙阴影
+                    var girl_wall_num=1;
+                    var params1 = '{"areaId":"'+id+'"}';
+                    $.axs("oa/projectObstacle/getWallByAreaListId", params, function(data){
+                        if(data.code==200){
+                            for(var j in map._layers) {
+                                if (map._layers[j] instanceof L.Polygon){
+                                    if(map._layers[j].id.indexOf("parapetCorner"+id_num)>-1){
+                                        map.removeLayer(map._layers[j]);
+                                    }
+                                }
+                            }
+                            var projectList = data.data;
+                            for(var i=0;i<projectList.length;i++){
+                                var res=projectList[i].shadow;
+                                var girl_shadow=JSON.parse(res);
+                                var girl_shadow_arr=[];
+                                for(var j=0;j<girl_shadow.length-1;j++){
+                                    var la=map.unproject(girl_shadow[j],18);
+                                    var point=[la.lat,la.lng];
+                                    girl_shadow_arr.push(point);
+                                };
+                                var polygon = new L.Polygon(girl_shadow_arr,{
+                                    color:"#000000",
+                                    opacity:0,
+                                    fillOpacity: 0.25,
+                                    width:0
+                                });
+                                var layer = polygon;
+                                layer.id="parapetCorner"+id_num+"_"+girl_wall_num;
+                                drawnItems.addLayer(layer);
+                                girl_wall_num++;
+                            }
+                        }
+                    });
+                    //刷新障碍物阴影
+                    var obParams = '{"areaId":"'+id+'"}';
+                    $.axs("oa/projectObstacle/getByAreaId", obParams, function(data){
+                    	var projectObstacleList = data.data;
+                    	for(var i=0;i<projectObstacleList.length;i++){
+                    		barrierShadow(projectObstacleList[i].heigth,projectObstacleList[i].bakstr1);
+                    	}
+                    })
+                }
+            })
+        }
+        
+        //修改屋顶类型
+        function updAreaType1(flag){
+            stopEvent(event);
+            var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+            for(var i in map._layers) {
+                if (map._layers[i] instanceof L.Polygon) {
+                    if(map._layers[i].id.indexOf("house")>-1){
+                        map._layers[i].setStyle({color:house_b_color,opacity:house_l_opacity,fillOpacity: house_f_opacity});  
+                    };
+                    if(map._layers[i].id.indexOf("barrier")>-1){
+                        map._layers[i].setStyle({color:barrier_b_color,opacity:barrier_l_opacity,fillOpacity:barrier_f_opacity});
+                    };
+                    if(map._layers[i].id ==id){
+                        map._layers[i].setStyle({color:"#f5e74e",opacity:house_l_opacity,fillOpacity: house_f_opacity});
+                    }
+                }
+            };
+            $(flag).parents().find("#slopeUl").show();
+            $(flag).removeClass("icon_checkbox_off").addClass("icon_checkbox_on");
+            $(flag).parent().siblings().find("span.type_name").removeClass("icon_checkbox_on").addClass("icon_checkbox_off");
+            //if($(flag).parents().find("input#slope").val()==null||$(flag).parents().find("input#slope").val()==''){
+            	$(flag).parents().find("input#slope").val("3");
+            /* } else{
+            	return;
+            } */
+            var id_num=id.substring(5);
+            var girl_id="parapetCorner"+id_num;
+            var params = '{"direction":"","areaId":"'+id+'","name":"","module":"","azimuth":"","slope":"'+$(flag).parents().find("input#slope").val()+'","totalArea":"","wallLength":"","wallGap":"","areaType":"1","slopeUnit":"","directionAngle":"","corner":""}';
+            $.axs("oa/projectArea/updateArea", params, function(data) {
+                if(data.code==200){
+                    var project = data.data;
+                    changePowerMoneyTotalCapaCity(project);
+                    var girl_wall_num=1;
+                    var params1 = '{"areaId":"'+id+'"}';
+                    $.axs("oa/projectObstacle/getWallByAreaListId", params, function(data){
+                        if(data.code==200){
+                            for(var j in map._layers) {
+                                if (map._layers[j] instanceof L.Polygon){
+                                    if(map._layers[j].id.indexOf("parapetCorner"+id_num)>-1){
+                                        map.removeLayer(map._layers[j]);
+                                    }
+                                }
+                            };
+                            var projectList = data.data;
+                            for(var i=0;i<projectList.length;i++){
+                                var res=projectList[i].shadow;
+                                var girl_shadow=JSON.parse(res);
+                                var girl_shadow_arr=[];
+                                for(var j=0;j<girl_shadow.length-1;j++){
+                                    var la=map.unproject(girl_shadow[j],18);
+                                    var point=[la.lat,la.lng];
+                                    girl_shadow_arr.push(point);
+                                };
+                                var polygon = new L.Polygon(girl_shadow_arr,{
+                                    color:"#000000",
+                                    opacity:0,
+                                    fillOpacity: 0.25,
+                                    width:0
+                                });
+                                var layer = polygon;
+                                layer.id="parapetCorner"+id_num+"_"+girl_wall_num;
+                                drawnItems.addLayer(layer);
+                                girl_wall_num++;
+                            }
+                        }
+                    });
+                }
+            })
+            ga('send','event', 'radio','click','选择斜屋顶');
+        }
+      	//修改屋顶类型
+        function updAreaType2(flag){
+            stopEvent(event);
+            var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+            for(var i in map._layers){
+                if (map._layers[i] instanceof L.Polygon) {
+                    if(map._layers[i].id.indexOf("house")>-1){
+                        map._layers[i].setStyle({color:house_b_color,opacity:house_l_opacity,fillOpacity: house_f_opacity});  
+                    };
+                    if(map._layers[i].id.indexOf("barrier")>-1){
+                        map._layers[i].setStyle({color:barrier_b_color,opacity:barrier_l_opacity,fillOpacity:barrier_f_opacity});
+                    };
+                    if(map._layers[i].id ==id){
+                        map._layers[i].setStyle({color:"#f5e74e",opacity:house_l_opacity,fillOpacity: house_f_opacity});
+                    }
+                }
+            }
+            $(flag).parents().find("#slopeUl").hide();
+            $(flag).parents().find("input#slope").val("");
+            $(flag).removeClass("icon_checkbox_off").addClass("icon_checkbox_on");
+            $(flag).parent().siblings().find("span.type_name").removeClass("icon_checkbox_on").addClass("icon_checkbox_off");
+            var id_num=id.substring(5);
+            var girl_id="parapetCorner"+id_num;
+            var params = '{"direction":"","areaId":"'+id+'","name":"","module":"","azimuth":"","slope":"0","totalArea":"","wallLength":"","wallGap":"","areaType":"2","slopeUnit":"","directionAngle":"","corner":""}';
+            $.axs("oa/projectArea/updateArea", params, function(data) {
+                if(data.code==200){
+                    var project = data.data;
+                    changePowerMoneyTotalCapaCity(project);
+                    var girl_wall_num=1;
+                    var params1 = '{"areaId":"'+id+'"}';
+                    $.axs("oa/projectObstacle/getWallByAreaListId", params, function(data){
+                        if(data.code==200){
+                            for(var j in map._layers) {
+                                if (map._layers[j] instanceof L.Polygon){
+                                    if(map._layers[j].id.indexOf("parapetCorner"+id_num)>-1){
+                                        map.removeLayer(map._layers[j]);
+                                    }
+                                }
+                            };
+                            var projectList = data.data;
+                            for(var i=0;i<projectList.length;i++){
+                                var res=projectList[i].shadow;
+                                var girl_shadow=JSON.parse(res);
+                                var girl_shadow_arr=[];
+                                for(var j=0;j<girl_shadow.length-1;j++){
+                                    var la=map.unproject(girl_shadow[j],18);
+                                    var point=[la.lat,la.lng];
+                                    girl_shadow_arr.push(point);
+                                };
+                                var polygon = new L.Polygon(girl_shadow_arr,{
+                                    color:"#000000",
+                                    opacity:0,
+                                    fillOpacity: 0.25,
+                                    width:0
+                                });
+                                var layer = polygon;
+                                layer.id="parapetCorner"+id_num+"_"+girl_wall_num;
+                                drawnItems.addLayer(layer);
+                                girl_wall_num++;
+                            }
+                        }
+                    });
+                }
+            })
+            ga('send','event', 'radio','click','选择平屋顶');
+        }
+      	
+        var wallVal;
+		//点击女儿墙
+        function girlwallFocus(flag){
+            stopEvent(event);
+            wallVal = $(flag).val();
+            var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+            for(var i in map._layers) {
+                if (map._layers[i] instanceof L.Polygon) {
+                    if(map._layers[i].id.indexOf("house")>-1){
+                        map._layers[i].setStyle({color:house_b_color,opacity:house_l_opacity,fillOpacity: house_f_opacity});  
+                    };
+                    if(map._layers[i].id.indexOf("barrier")>-1){
+                        map._layers[i].setStyle({color:barrier_b_color,opacity:barrier_l_opacity,fillOpacity:barrier_f_opacity});
+                    };
+                    if(map._layers[i].id ==id){
+                        map._layers[i].setStyle({color:"#f5e74e",opacity:house_l_opacity,fillOpacity: house_f_opacity});
+                    }
+                }
+            }
+        }
+        //修改屋顶护栏高度
+        function updWallLength(flag){
+            stopEvent(event);//组织冒泡
+            var changeWallVal = $(flag).val();
+            if(changeWallVal == wallVal){
+            	return;
+            }
+            if(changeWallVal == null || changeWallVal == ""){
+            	changeWallVal = 0;
+            }
+            var id=$(flag).parents("#roof_set").siblings("#roof2").find(".title_active").attr("id");
+              var id_num=id.substring(5);
+              var girl_id="parapetCorner"+id_num;
+              for(var j in map._layers) {
+                  if (map._layers[j] instanceof L.Polygon){
+                      if(map._layers[j].id.indexOf("parapetCorner"+id_num)>-1){
+                          map.removeLayer(map._layers[j]);
+                      }
+                  }
+              }
+              var params = '{"direction":"","areaId":"'+id+'","name":"","module":"","azimuth":"","slope":"","totalArea":"","wallLength":"'+changeWallVal+'","wallGap":"","areaType":"","slopeUnit":"","directionAngle":"","corner":""}';
+              $.ins("oa/projectArea/updateArea", params, function(data) {
+                  if(data.code==200){
+                      var project = data.data;
+                      changePowerMoneyTotalCapaCity(project);
+                  }
+                 
+              });
+              var girl_wall_num=1;
+              var params1 = '{"areaId":"'+id+'"}';
+              $.axs("oa/projectObstacle/getWallByAreaListId", params, function(data){
+                  if(data.code==200){
+                      var projectList = data.data;
+                      for(var i=0;i<projectList.length;i++){
+                          var res=projectList[i].shadow;
+                          var girl_shadow=JSON.parse(res);
+                          var girl_shadow_arr=[];
+                          for(var j=0;j<girl_shadow.length-1;j++){
+                              var la=map.unproject(girl_shadow[j],18);
+                              var point=[la.lat,la.lng];
+                              girl_shadow_arr.push(point);
+                          };
+                          var polygon = new L.Polygon(girl_shadow_arr,{
+                              color:"#000000",
+                              opacity:0,
+                              fillOpacity: 0.25,
+                              width:0
+                          });
+                          var layer = polygon;
+                          layer.id="parapetCorner"+id_num+"_"+girl_wall_num;
+                          drawnItems.addLayer(layer);
+                          girl_wall_num++;
+                      }
+                  }
+              });
+              ga('send','event', 'input','modify','修改女儿墙高度');
+		}
+        
+        
+        
+        //障碍物
+        function drawObstacleInfo(projectObstacleDto) {
+            var obstacleName;
+            if(projectObstacleDto!=null){
+                obstacleName = projectObstacleDto.name;
+            }else{
+                obstacleName = "障碍物"+numb;
+            }
+            var $obstacle = $(".copy2").html();
+            var $new = $("<div class='create_roof block' id='"+obstacle_id+"' style='display:block'><ul class='angle_val mts_10'><li class='angle_text'><span class='edit_text' id='obstacleName' tabindex='0' onclick='updBarName(this)'>"
+                    + projectObstacleDto.name
+                    + "</span></li><li class='angle_ipt5' style='width:142px;'><input type='text' value='1' placeholder='请输入高度' class='angle_ipt5' id='prizeMoney' onkeyup='checkNum(this)' onclick='clickBarHeight(this)' onblur='changeBarHeight(this)'><label for='prizeMoney2'> </label><b>米</b></li><li style='margin-top:5px;float:right; margin-right:10px;'><span class=' icon_delete2 ' onclick='clearMap(this)'></span></li><div class='clear'></div></ul></div>");
+            numb++;
+            obstacleId = obstacle_id;
+            $("#roof3").append($new);
+            $("#roof3").next().append($obstacle);
+            
+            $("#info6").on("mouseover mouseout",function(event){
+                if(event.type=="mouseover"){
+                    var X = $(this).offset().top;
+                    var Y = $(this).offset().left;
+                    $("div#roofprompt6").css({"left":Y + 30,"top":X - 120 })
+                    $("div#roofprompt6").show();
+                }else{$("div#roofprompt6").hide();}
+            })
+            $(".create_roof div.create_roof_title span.ml2").unbind("click").on("click", function() {
+                var div = $(this).parent().parent().attr("id");
+                $(this).parent().siblings().toggle();
+                $(this).toggleClass("icon_arrow2_down");
+                $(this).toggleClass("icon_arrow2_right");
+                obstacleId = div;
+            })
+            $(".calculate_prompt").hide();
+            var pa = '{"type":"1"}';
+            //判断项目是否存在绘制好的障碍物
+            $.ins("oa/projectObstacle/getObstacleValue", pa, function(data) {
+                if(data.code==200&&data.data.length>0){
+                    //分页数据
+                    var projectSize = Math.ceil(data.data.length/5);
+                    var str = "<ul>";
+                    str+="<li><span onclick='barPageUp()'   class='icon_arrow1_left'></span></li>";
+                    str+="<li><span id='barPage1' class='round1' onclick='changeBarPageNum(this,0)'>1</span></li>";
+                    for (var i = 2; i <= projectSize; i++) {
+                        var j = i-1;
+                        str+='<li><span id="barPage'+i+'" onclick=changeBarPageNum(this,'+j+')>'+i+'</span></li>';
+                    }
+                    str+="<li><span onclick='barPageDown()'  class='icon_arrow1_right'></span></li>";
+                    str+="</ul>";
+                    $("#barPage").html(str);
+                }
+            })
+            $("#height2").find(".create_roof").remove();
+            getAllBarrierList(0);
+        }
+        
+        //修改障碍物名称
+        function updBarName(flag){
+            var id=$(flag).parents(".create_roof").attr("id");
+            var txt = $(flag);
+            var edit = txt.text();
+            var editipt = $("<input type='text' class='edit_ipt4' value='"+edit+"' onkeyup='checkName(this)'/>");
+            txt.html(editipt)
+            var t=txt.children().val(); 
+            txt.children().val("").focus().val(t);
+            editipt.click(function() {
+                return false;
+            });
+            //获取焦点 
+    
+
+            //文本框失去焦点后提交内容，重新变为文本 
+            editipt.blur(function() {
+                var newtxt = $(this).val();
+                txt.html(newtxt);
+                var params = '{"obstacleId":"'+id+'","name":"'+newtxt+'","type":"1","totalArea":"'+'","heigth":"'+'","shadow":"'+'","corner":"'+'"}';
+                $.axs("oa/projectObstacle/updateObstacle", params, function(data) {})
+            })
+        }
+        
+        //屋顶列表加载
+        function getAllAreaList(pageNum){
+            var pa = '{"id":"1"}';
+            $.ins("oa/projectArea/getAreaListByProjicetId", pa, function(data) {
+                if(data.code==200 && data.data.length>0){
+                    var projectList = data.data;
+                    var projectSize = Math.ceil(data.data.length/5);
+                    var i=pageNum*5
+                    var size;
+                    if(projectSize!=pageNum+1){
+                        size=pageNum*5+5;
+                    }else{
+                        size=projectList.length;
+                    }
+                    $("#rooftitle").empty();
+                    for(i;i<size;i++){
+                        var res=projectList[i].corner;
+                        var res_id=projectList[i].bakstr1;
+                        var area_corner=JSON.parse(res);
+                        var area_point_arr=[];
+                        for(var j=0;j<area_corner.length-1;j++){
+                            var la=map.unproject(area_corner[j],18);
+                            var point=[la.lat,la.lng];
+                            area_point_arr.push(point);
+                        }
+                        var polygon = new L.Polygon(area_point_arr,{
+                            color: house_b_color
+                        }); 
+                        var layer = polygon;
+                        layer.id=res_id;
+                        //drawnItems.addLayer(layer);
+                        var $roof = $(".copy").html();
+                        var $new = $("<div class='create_roof house block' id='"+layer.id+"' style='display:block'><div class=' create_roof_title'><span class='edit_text' id='roofName'>"
+                                + projectList[i].name
+                                + "</span><span class=' icon_delete2 lh30' onclick='clearArea(this,event)'></span><span class='icon_edit lh30  new' tabindex='0' onclick='updAreaName(this,event)'></span></div>");
+                        $(".create_roof div.create_roof_title span.ml2").removeClass("icon_arrow2_down");
+                        $(".create_roof div.create_roof_title span.ml2").addClass("icon_arrow2_right");
+                        $(".create_roof div.create_roof_title span.ml2").parent().siblings().hide();
+                        $("#rooftitle").append($new);
+                        $("#roof2").next().append($roof);
+                        $("#roof2").show()
+                        num++;
+                        areaId = layer.id;
+                    }
+                    $("#info1").on("mouseover mouseout",function(event){
+                        if(event.type=="mouseover"){
+                            var X = $(this).offset().top;
+                            var Y = $(this).offset().left;
+                            $("div#roofprompt1").css({"left":Y + 30,"top":X - 120 })
+                            $("div#roofprompt1").show();
+                        }else{$("div#roofprompt1").hide();}
+                    })
+                    $("#info3").on("mouseover mouseout",function(event){
+                        if(event.type=="mouseover"){
+                            var X = $(this).offset().top;
+                            var Y = $(this).offset().left;
+                            $("div#roofprompt3").css({"left":Y + 30,"top":X - 120 })
+                            $("div#roofprompt3").show();
+                        }else{$("div#roofprompt3").hide();}
+                    })
+                    $("#info2").on("mouseover mouseout",function(event){
+                        if(event.type=="mouseover"){
+                            var X = $(this).offset().top;
+                            var Y = $(this).offset().left;
+                            $("div#roofprompt2").css({"left":Y + 20,"top":X - 200 })
+                            $("div#roofprompt2").show();
+                        }else{ $("div#roofprompt2").hide();}
+                    })
+                    $("#info4").on("mouseover mouseout",function(event){
+                        if(event.type=="mouseover"){
+                            var X = $(this).offset().top;
+                            var Y = $(this).offset().left;
+                            $("div#roofprompt4").css({"left":Y + 30,"top":X - 120 })
+                            $("div#roofprompt4").show();
+                        }else{ $("div#roofprompt4").hide();}
+                    })
+                    $("#info5").on("mouseover mouseout",function(event){
+                        if(event.type=="mouseover"){
+                            var X = $(this).offset().top;
+                            var Y = $(this).offset().left;
+                            $("div#roofprompt5").css({"left":Y + 30,"top":X - 120 })
+                            $("div#roofprompt5").show();
+                        }else{ $("div#roofprompt5").hide();}
+                    })
+                }
+            })
+        }
+        //屋顶地图加载
+        function getAllAreaMap(){
+            var pa = '{"id":"1"}';
+            $.ins("oa/projectArea/getAreaListByProjicetId", pa, function(data) {
+                if(data.code==200 && data.data.length>0){
+                    var projectList = data.data;
+                    var num=1;
+                    for(var i=0;i<projectList.length;i++){
+                        //屋顶地图加载
+                        var res=projectList[i].corner;
+                        var res_id=projectList[i].bakstr1;
+                        var direction=projectList[i].direction
+                        var direction_str=projectList[i].bakstr2;
+                        
+                        var area_corner=JSON.parse(res);
+                        var wallLength=projectList[i].wallLength;
+                        var area_point_arr=[];
+                        for(var j=0;j<area_corner.length-1;j++){
+                            var la=map.unproject(area_corner[j],18);
+                            var point=[la.lat,la.lng];
+                            area_point_arr.push(point);
+                        }
+                        var polygon = new L.Polygon(area_point_arr,{
+                            color: house_b_color,
+                            opacity:house_l_opacity,
+                            fillOpacity: house_f_opacity
+                        });
+                        var layer = polygon;
+                        layer.id=res_id;
+                        drawnItems.addLayer(layer);
+                        var marker_id=res_id.substring(5);
+                        if(direction_str!=null&&direction_str!=""){
+	                        var direction_corner=direction_str.split(",");
+	                        var direction_x=direction_corner[0];
+	                        var direction_y=direction_corner[1];
+	                        getHouseCenter(marker_id,direction_x,direction_y,direction);
+                        }else{
+                        	var prev_layer=prev_edit(res_id);
+                        	edit_post_house(prev_layer._latlngs,res_id,prev_layer);
+                        }
+                        renewParapet(res_id,wallLength);
+                    };
+                }
+            })
+        }; 
+        
+        //障碍物列表加载
+        function getAllBarrierList(pageNum){
+            var params = '{"type":"1"}';
+            $.ins("oa/projectObstacle/getObstacleValue", params, function(data) {
+                if(data.code==200&&data.data.length>0){
+                    var projectList = data.data;
+                    var projectSize = Math.ceil(data.data.length/5);
+                    var i=pageNum*5
+                    var size;
+                    if(projectSize!=pageNum+1){
+                        size=pageNum*5+5;
+                    }else{
+                        size=projectList.length;
+                    }
+                    for(i;i<size;i++){
+                        var res=projectList[i].corner;
+                        var res_id=projectList[i].bakstr1;
+                        var area_corner=JSON.parse(res);
+                        var area_point_arr=[];
+                        for(var j=0;j<area_corner.length-1;j++){
+                            var la=map.unproject(area_corner[j],18);
+                            var point=[la.lat,la.lng];
+                            area_point_arr.push(point);
+                        }
+                        var polygon = new L.Polygon(area_point_arr,{
+                            color: barrier_b_color,
+                            weight: 2,
+                            opacity:barrier_l_opacity,
+                            fillOpacity:barrier_f_opacity
+                        });
+                        var layer = polygon;
+                        layer.id=res_id;
+                        this_barrierList=res_id;
+                        barrier_poly_type=1;
+                        var barrier_height=projectList[i].heigth;
+                        var $obstacle = $(".copy2").html();
+                        var $input = $("#barHeight").html();
+                        var $new = $("<div class='create_roof block' id='"+this_barrierList+"' style='display:block'><ul class='angle_val mts_10'><li class='angle_text'><span class='edit_text' id='obstacleName' tabindex='0' onclick='updBarName(this)'>"
+                                + projectList[i].name
+                                + "</span></li><li class='angle_ipt5'  style='width:142px;'><input type='text' placeholder='请输入高度' class='angle_ipt5' id='prizeMoney' onkeyup='checkNum(this)' onclick='clickBarHeight(this)' onblur='changeBarHeight(this)'><label for='prizeMoney2'> </label><b  >米</b></li><li style='margin-top:5px;float:right; margin-right:10px;'><span class=' icon_delete2 ' onclick='clearMap(this)'></span></li><div class='clear'></div></ul></div>");
+
+                        obstacleId = layer.id;
+                        $("#roof3").append($new);
+                        $("#roof3").next().append($obstacle);
+                        num++;
+                        $("#"+obstacleId).find("#prizeMoney").val(projectList[i].heigth);
+                    }
+                    $("#info6").on("mouseover mouseout",function(event){
+                        if(event.type=="mouseover"){
+                            var X = $(this).offset().top;
+                            var Y = $(this).offset().left;
+                            $("div#roofprompt6").css({"left":Y + 30,"top":X - 120 })
+                            $("div#roofprompt6").show();
+                        }else{$("div#roofprompt6").hide();}
+                    })
+                    $(".create_roof div.create_roof_title span.ml2").unbind("click").on("click", function() {
+                        var div = $(this).parent().parent().attr("id");
+                        $(this).parent().siblings().toggle();
+                        $(this).toggleClass("icon_arrow2_down");
+                        $(this).toggleClass("icon_arrow2_right");
+                        obstacleId = div;
+                    })
+                }
+            })
+        }
+        //障碍物地图加载
+        function getAllBarrierMap(){
+            var params = '{"type":"1"}';
+            $.axs("oa/projectObstacle/getObstacleValue", params, function(data) {
+                if(data.code==200&&data.data.length>0){
+                    var projectList = data.data;
+                    if(projectList.length!=0){
+                        $('.tab_div span:eq(1)').children().children().hide();
+                    }
+                    var num=1;
+                    for(var i=0;i<projectList.length;i++){
+                        //障碍物地图加载
+                        var res=projectList[i].corner;
+                        var res_id=projectList[i].bakstr1;
+                        var area_corner=JSON.parse(res);
+                        var area_point_arr=[];
+                        for(var j=0;j<area_corner.length-1;j++){
+                            var la=map.unproject(area_corner[j],18);
+                            var point=[la.lat,la.lng];
+                            area_point_arr.push(point);
+                        }
+                        var polygon = new L.Polygon(area_point_arr,{
+                            color: barrier_b_color,
+                            weight: 2,
+                            opacity:barrier_l_opacity,
+                            fillOpacity:barrier_f_opacity
+                        });
+                        var layer = polygon;
+                        layer.id=res_id;
+                        this_barrierList=res_id;
+                        //回显的点
+                        barrier_poly_type=1;
+                        var barrier_height=projectList[i].heigth;
+                        barrierShadow(barrier_height,this_barrierList);
+                        drawnItems.addLayer(layer);
+                    };
+                }
+            })  
+        };
+        
+        //容量与发电量数据实时变化
+        function changePowerMoneyTotalCapaCity(project){
+            var powerFrom = 0;
+            var powerTo = 0;
+            if(project.powerFrom<10000){
+                powerFrom = project.powerFrom;
+                powerFrom = powerFrom.toFixed(2);
+                powerTo = project.powerTo;
+                powerTo = powerTo.toFixed(2);
+                $("#powerText").text("年发电量（度）");
+            }else if(project.powerFrom>=10000 && project.powerFrom<100000000){
+                powerFrom = project.powerFrom/10000;
+                powerFrom = powerFrom.toFixed(2);
+                powerTo = project.powerTo/10000;
+                powerTo = powerTo.toFixed(2);
+                $("#powerText").text("年发电量（万度）");
+            }else if(project.powerFrom>=100000000){
+                powerFrom = project.powerFrom/100000000;
+                powerFrom = powerFrom.toFixed(2);
+                powerTo = project.powerTo/100000000;
+                powerTo = powerTo.toFixed(2);
+                $("#powerText").text("年发电量（亿度）");
+            }
+            $("#power").text(powerFrom+"~"+powerTo);
+            $("#power").animate({
+                "top" : "-5px",
+                "left" : "-4px",
+                opacity : "1"
+            }, 300);
+            var totalCapacityFrom = 0;
+            var totalCapacityTo = 0;
+            if(project.totalCapacityFrom<1000){
+                totalCapacityFrom = project.totalCapacityFrom;
+                totalCapacityFrom = totalCapacityFrom.toFixed(2);
+                totalCapacityTo = project.totalCapacityTo;
+                totalCapacityTo = totalCapacityTo.toFixed(2);
+                $("#sizeText").text("容量（W）");
+            }else if(project.totalCapacityFrom>=1000 && project.totalCapacityFrom<1000000){
+                totalCapacityFrom = project.totalCapacityFrom/1000;
+                totalCapacityFrom = totalCapacityFrom.toFixed(2);
+                totalCapacityTo = project.totalCapacityTo/1000;
+                totalCapacityTo = totalCapacityTo.toFixed(2);
+                $("#sizeText").text("容量（KW）");
+            }else if(project.totalCapacityFrom>=1000000 && project.totalCapacityFrom<1000000000){
+                totalCapacityFrom = project.totalCapacityFrom/1000000;
+                totalCapacityFrom = totalCapacityFrom.toFixed(2);
+                totalCapacityTo = project.totalCapacityTo/1000000;
+                totalCapacityTo = totalCapacityTo.toFixed(2);
+                $("#sizeText").text("容量（MW）");
+            }else if(project.totalCapacityFrom>=1000000000){
+                totalCapacityFrom = project.totalCapacityFrom/1000000000;
+                totalCapacityFrom = totalCapacityFrom.toFixed(2);
+                totalCapacityTo = project.totalCapacityTo/1000000000;
+                totalCapacityTo = totalCapacityTo.toFixed(2);
+                $("#sizeText").text("容量（GW）");
+            }
+            $("#size").text(totalCapacityFrom+"~"+totalCapacityTo);
+            $("#size").animate({
+                "top" : "-5px",
+                "left" : "29px",
+                opacity : "1"
+            }, 300);
+            var totalAvailableArea = project.totalAvailableArea.toFixed(2);
+            $("#areaSize").text(totalAvailableArea);
+            $("#areaSize").animate({
+                "top" : "-5px",
+                "left" : "9px",
+                opacity : "1"
+            }, 300);
+            
+            if(parseInt(totalAvailableArea)>0){
+                    $("#toReport").unbind('click'); 
+                    $("#toReport").bind('click',function(){
+                    	var div1 = document.getElementById("loadingDiv");
+                    	div1.style.display="block";
+                        close_btn=true;
+                        mapCut();
+                        
+            			//$(".loading-box").show();
+            			//processerbar(arr[i]);
+                        fakeProgress(0, sb);
+                    });   
+            }else{
+                $('#toReport').attr('class','generate_btn');
+                $("#toReport").unbind('click'); 
+            }
+        }
+        
+        //屋顶分页
+        function changePageNum(flag,pageNum){
+            $(flag).addClass("round");
+            $(flag).parent().siblings().find("span").removeClass("round");
+            $("#rooftitle").empty();
+            getAllAreaList(pageNum);
+        }
+        //屋顶向上翻页
+        function pageUp(){
+            var nowPageNum = $(".round").html();
+            if(nowPageNum>1){
+                $(".round").removeClass("round");
+                $("#areaPage").find("li").eq(nowPageNum-1).find("span").addClass("round");
+                $("#rooftitle").empty();
+                getAllAreaList(nowPageNum-2);
+            }
+        }
+        //屋顶向下翻页
+        function pageDown(){
+            var nowPageNum = $(".round").html();
+            var pa = '{"id":"1"}';
+            $.axs("oa/projectArea/getAreaListByProjicetId", pa, function(data) {
+                if(data.code==200 && data.data.length>0){
+                    var projectSize = Math.ceil(data.data.length/5);
+                    if(nowPageNum-1+2==projectSize){
+                        $(".round").removeClass("round");
+                        $("#areaPage").find("li").eq(nowPageNum-1+2).find("span").addClass("round");
+                        $("#rooftitle").empty();
+                        getAllAreaList(nowPageNum-1+1);
+                    }
+                }
+            })
+        }
+        
+        //障碍物分页
+        function changeBarPageNum(flag,pageNum){
+            $(flag).addClass("round1");
+            $(flag).parent().siblings().find("span").removeClass("round1");
+            $("#height2").find(".create_roof").remove();
+            getAllBarrierList(pageNum);
+        }
+        //障碍物向上翻页
+        function barPageUp(){
+            var nowPageNum = $(".round1").html();
+            if(nowPageNum>1){
+                $(".round1").removeClass("round1");
+                $("#barPage").find("li").eq(nowPageNum-1).find("span").addClass("round1");
+                $("#height2").find(".create_roof").remove();
+                getAllBarrierList(nowPageNum-2);
+            }
+        }
+        //障碍物向下翻页
+        function barPageDown(){
+            var nowPageNum = $(".round1").html();
+            var pa = '{"type":"1"}';
+            $.axs("oa/projectObstacle/getObstacleValue", pa, function(data) {
+                if(data.code==200 && data.data.length>0){
+                    var projectSize = Math.ceil(data.data.length/5);
+                    if(nowPageNum-1+2==projectSize){
+                        $(".round1").removeClass("round1");
+                        $("#barPage").find("li").eq(nowPageNum-1+2).find("span").addClass("round1");
+                        $("#height2").find(".create_roof").remove();
+                        getAllBarrierList(nowPageNum-1+1);
+                    }
+                }
+            })
+        }
+        
+        //判断底部是否需要显示“绘制障碍物和运维通道，方案测算更精确”
+        function isNeedDraw(){
+            var params = '{"id":"' + 1 + '"}';
+            $.axs("oa/projectObstacle/isShowDraw", params, function(data) {
+                if(data!=null&&data.code==200){
+                    if(data.data>=1){
+                        $(".calculate_prompt").hide();
+                    }else{
+                        $(".calculate_prompt").show();
+                    }
+                }else{
+                    $(".calculate_prompt").show();
+                }
+            })
+        }
+    </script>
+    <script type="text/javascript" src="/dat/static/js/leafDraw.js"></script>
+    
+    <script>
+        //页面刷新加载
+        //获取到变量ids
+        var house_id_ids;
+        var obstalce_id_ids;
+        var gallery_id_ids;
+        (function (){
+            var params = '{"id":"1"}';
+            $.ins("oa/projectArea/getAreaListByProjicetId", params, function(data) {
+               if(data.code==200){
+                   var projectList = data.data;
+                   if(projectList.length==0){
+                       house_id_ids=0;
+                   }else{
+                       house_id_ids=projectList[0].bakstr1;
+                       if(house_id_ids!=null){ 
+                           house_id_ids=house_id_ids.substring(5);
+                       }else{
+                           house_id_ids=0;
+                       }
+                   }
+               }
+           })
+       })();
+        (function (){
+           var params='{"type":"1"}';
+           $.ins("oa/projectObstacle/getObstacleValue", params, function(data) {
+               if(data.code==200){
+                   var projectList = data.data;
+                   if(projectList.length==0){
+                       obstalce_id_ids=0;
+                       ids();
+                   }else{
+                       obstalce_id_ids=projectList[0].bakstr1;
+                       if(obstalce_id_ids!=null){
+                           obstalce_id_ids=obstalce_id_ids.substring(7);
+                           ids();
+                       }else{
+                           obstalce_id_ids=0;
+                           ids();
+                       }
+                   }
+               }
+           })
+       })();
+        function ids(){
+            var max_ids=parseInt(house_id_ids)>parseInt(obstalce_id_ids)?parseInt(house_id_ids):parseInt(obstalce_id_ids);
+            if(house_id_ids==0&&obstalce_id_ids==0){
+                ids=1;
+            }else{
+                ids=parseInt(max_ids)+1; 
+            }
+        };
+       
+       
+      window.onload=function(){
+          //回显
+          var params = '{"id":"1"}';
+            //加载项目名称
+            $.axs("oa/project/getProjectById", params, function(data) {
+                if(data.code==200){
+                	var project = data.data;
+                    var updProjectName = '<span class="mls" style="margin-left:0px; width:300px; text-overflow: ellipsis;overflow: hidden; white-space: nowrap;" id="projectName">'+data.data.projectName+'</span>';
+                    $("#projectName").html(updProjectName);
+                    /* if(project.submitType==1){
+                    	$("#onoff").removeClass("icon_checkbox1_off").addClass("icon_checkbox1_on");
+                    }else{
+                    	$("#onoff").removeClass("icon_checkbox1_on").addClass("icon_checkbox1_off");
+                    } */
+                }
+            });
+            //判断项目是否存在绘制好的屋顶
+            $.ins("oa/projectArea/getAreaListByProjicetId", params, function(data) {
+                if(data.code==200&&data.data.length>0){
+                        //切换‘生成收益报告’按钮的样式
+                        $('#toReport').attr('class','generate_btn3');
+                        //删除操作指导
+                        $('.prompt_box').remove();
+                        $('.circle').remove();
+                        //分页数据
+                        var projectSize = Math.ceil(data.data.length/5);
+                        var str = "<ul>";
+                        str+="<li><span onclick='pageUp()' class='icon_arrow1_left'></span></li>";
+                        str+="<li><span class='round' id='areaPage1' onclick='changePageNum(this,0)'>1</span></li>";
+                        for (var i = 2; i <= projectSize; i++) {
+                            var j = i-1;
+                            str+='<li><span id="areaPage'+i+'" onclick=changePageNum(this,'+j+')>'+i+'</span></li>';
+                        }
+                        str+="<li><span onclick='pageDown()'  class='icon_arrow1_right'></span></li>";
+                        str+="</ul>";
+                        $("#areaPage").empty().html(str);
+                        //容量、发电量数据变更
+                        $.axs("oa/project/getProjectById", params, function(data) {
+                            if(data.code==200){
+                                var project = data.data;
+                                changePowerMoneyTotalCapaCity(project);
+                            }
+                        });
+                        setAttr();
+                }else{
+                    deleteAttr();
+                }
+            });
+            
+            function setAttr(){
+                $("#toReport").unbind('click'); 
+                $("#toReport").bind('click',function(){
+                	var div1 = document.getElementById("loadingDiv");
+                	div1.style.display="block";
+                    mapCut();
+                    fakeProgress(0, sb);  
+                });   
+            }
+            function deleteAttr(){
+                $("#toReport").unbind('click'); 
+            }
+            
+            //判断是否有绘制好的屋顶
+            var pa = '{"type":"1"}';
+            $.ins("oa/projectObstacle/getObstacleValue", pa, function(data) {
+                if(data.code==200&&data.data.length>0){
+                    $(".active").find("i").css("display","none");
+                }
+            })
+            
+          getAllAreaMap();
+          getAllAreaList(0);
+          getAllBarrierMap();
+          //getAllBarrierList(0);
+          isNeedDraw();
+      } 
+    </script>
+    <script type="text/javascript">
+        var longitude = 121.516879;
+        var latitude = 31.299784;
+        map.setView(L.latLng(latitude, longitude));
+        var loginPhone = 18210677984;
+        $("#loginUser").html(loginPhone);
+    </script>
+    <script type="text/javascript"
+        src="/dat/static/js/tinyselect.js"></script>
+    <script>
+        /* This parser won't respect "---" selection */
+        function dataParserA(data, selected) {
+            retval = [ {
+                val : "-1",
+                text : "---"
+            } ];
+
+            data.forEach(function(v) {
+                if (selected == "-1" && v.val == 3)
+                    v.selected = true;
+                retval.push(v);
+            });
+
+            return retval;
+        }
+        /* This parser let's the component to handle selection */
+        function dataParserB(data, selected) {
+            retval = [ {
+                val : "-1",
+                text : "---"
+            } ];
+            data.forEach(function(v) {
+                retval.push(v);
+            });
+            return retval;
+        }
+
+        /* Create select elements */
+        $("#inverterCompany").tinyselect({
+            showSearch : false
+        });
+        $("#inverterType").tinyselect({
+            showSearch : false
+        });
+        $("#moduleType").tinyselect({
+            showSearch : false
+        });
+        $("#module").tinyselect({
+            showSearch : false
+        });
+        </script>
+    <script type="text/javascript"
+        src="/dat/static/js/tinyselectDraw.js"></script>
+</body>
+</html>

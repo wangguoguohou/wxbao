@@ -1,0 +1,82 @@
+
+.tinyselect2 {
+	height: 25px;
+	display: inline-block;
+	width: 35px;
+	position: relative;
+	line-height:25px;
+}
+
+.tinyselect2 .selectbox {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	text-align: right;
+	box-sizing: border-box;
+	cursor: pointer;
+	border-radius: 3px;
+	white-space: nowrap;
+	overflow-x: hidden;
+	font-size:14px;
+	padding-right: 20px;
+}
+.tinyselect2 .dropdown {
+	position: absolute;
+	width: 152px;
+	top: 33px;
+	left:-100px;
+	background-color: white;
+	z-index: 100;
+	box-sizing: border-box;
+	max-height: 180px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	 box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.3);
+	  border-radius: 2px;
+}
+
+.tinyselect .dropdown .searchcontainer {
+	padding: 5px;
+}
+
+.tinyselect .dropdown .searchbox {
+	width: 100%;
+	border: 1px solid #ccc;
+	font-size: 10pt;
+	line-height: 2em;
+	padding: 0 5px;
+}
+.tinyselect .itemcontainer {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.tinyselect  ul.itemcontainer > li {
+	padding: 5px 2px;
+		color: #4c4c4c;
+}
+
+.tinyselect2 .itemcontainer > li.item {
+    width: 152px; text-align:center 
+}
+
+.tinyselect2 .itemcontainer > li.selected {
+	background-color: #ececec;
+}
+
+.tinyselect .itemcontainer > li.item:hover {
+	background-color: #ececec;
+	color: #4c4c4c;
+}
+
+.tinyselect2 .itemcontainer li.loadindicator {
+	padding: 15px;
+	font-weight: bold;
+}
+
+.tinyselect2 .itemcontainer li.loaderrorindicator {
+	padding: 15px;
+	font-weight: bold;
+	color: red;
+}
