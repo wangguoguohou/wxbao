@@ -3,6 +3,9 @@ div,p,span,input,body,ul,li,dt,dl,dd,h2,h3,h4,b,dt,dl,dd,a{margin: 0;padding: 0;
 input,button,select,textarea,span,label{outline:none;}
 body{font-size:14px}
 .clear{ clear:both}
+.flex{
+  display: flex;
+}
 select { color:#ababab; text-align:right}
 select  option{ color:#666}
 input::-ms-clear{display:none;}

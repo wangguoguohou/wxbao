@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {test} from '../actions/Page1'
-import { Modal, List, Button, WhiteSpace, WingBlank, Badge, Tabs, SearchBar} from 'antd-mobile';
+import { Modal, List, Button, WhiteSpace, WingBlank, Badge, Tabs, SearchBar, Flex} from 'antd-mobile';
 import '../style/Page1.less'
 
-const tabs2 = [
-  { title: 'First Tab', sub: '1' },
-  { title: 'Second Tab', sub: '2' },
-  { title: 'Third Tab', sub: '3' },
-];
+//tab类别需要请求接口获得
+const tabs = [
+      { title: '推荐' },
+      { title: '亲子' },
+      { title: '数码' },
+      { title: '4th Tab' },
+      { title: '5th Tab' },
+      { title: '6th Tab' },
+      { title: '7th Tab' },
+      { title: '8th Tab' },
+      { title: '9th Tab' },
+    ];
 
 function closest(el, selector) {
   const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
@@ -44,14 +51,32 @@ class Page1 extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="promotion-goods">
           <WingBlank>
             <div className="sub-title">
-              <span>微宝</span><span>微宝</span>
+              <span>微销宝</span>
             </div>
-          </WingBlank>
-          <WingBlank>
             <SearchBar placeholder="自动获取光标" ref={ref => this.autoFocusInst = ref} />
+            <WhiteSpace />
+            <Tabs tabs={tabs}
+              initialPage={0}
+              onChange={(tab, index) => { console.log('onChange', index, tab); }}
+              onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}>
+              <div style={{ display: 'flex', height: '550px', backgroundColor: '#fff' }}>
+                <div className="goods-box">
+                  <div className="item">
+                    <div className="flex img">111</div>
+                    <div className="flex content">1112</div>
+                  </div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+                Content of second tab
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+                Content of third tab
+              </div>
+            </Tabs>
           </WingBlank>
           
           <WhiteSpace />
